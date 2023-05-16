@@ -1,86 +1,72 @@
+import math
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QWidget, QPushButton, QLineEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout
 from PyQt5.QtGui import QPixmap
 from Algorithms import Algorithms
 
-
-class Calc(QMainWindow):
+class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Вычислить")
+        self.layout = QVBoxLayout()
+        self.choose_algorithms = QHBoxLayout()
+        self.label = QVBoxLayout()
+        self.text = QVBoxLayout()
+        self.variables = QHBoxLayout()
 
-        # Создаем вертикальный контейнер для размещения виджетов
-        layout = QVBoxLayout()
+        self.linear = QPushButton("Линейный")
+        self.branching = QPushButton("Разветленный")
 
-        variables_layout = QHBoxLayout()
-        variables_label_layout = QVBoxLayout()
-        variables_text_layout = QVBoxLayout()
+        self.pixmap = QPixmap("Images/linear.png")
+        self.pixmap_label = QLabel("fff")
+        self.pixmap_label.setPixmap(self.pixmap)
 
-        choose_algorithms = QHBoxLayout()
+        self.x_label = QLabel("x:")
+        self.x_text = QLineEdit()
 
-        # Создаем две кнопки для выбора
-        linear = QPushButton("Линейный")
-        branching = QPushButton("Разветленный")
+        self.y_label = QLabel("y:")
+        self.y_text = QLineEdit()
 
-        choose_algorithms.addWidget(linear)
-        choose_algorithms.addWidget(branching)
+        self.z_label = QLabel("z")
+        self.z_text = QLineEdit()
 
-        # Создаем поле для изображения
-        pixmap = QPixmap("Images/linear.png")
-        pixmap_label = QLabel("fff")
-        pixmap_label.setPixmap(pixmap)
+        self.result_label = QLabel("Результат:")
 
-        # Создаем поле для вывода результата
-        self.result_label = QLabel("Результат: ")
+        self.calculate_button = QPushButton("Вычислить")
+        self.calculate_button.clicked.connect(self.calculate_result)
 
-        # Создаем три поля для ввода переменных
-        variable1_label = QLabel("Variable x: ")
-        variable2_label = QLabel("Variable y: ")
-        variable3_label = QLabel("Variable z: ")
-        variable2 = QLineEdit("1")
-        variable3 = QLineEdit("2")
-        variable1 = QLineEdit("3")
+        self.choose_algorithms.addWidget(self.linear)
+        self.choose_algorithms.addWidget(self.branching)
 
-        variables_label_layout.addWidget(variable1_label)
-        variables_label_layout.addWidget(variable2_label)
-        variables_label_layout.addWidget(variable3_label)
-        variables_text_layout.addWidget(variable2)
-        variables_text_layout.addWidget(variable3)
-        variables_text_layout.addWidget(variable1)
-        variables_layout.addLayout(variables_label_layout)
-        variables_layout.addLayout(variables_text_layout)
+        self.layout.addLayout(self.choose_algorithms)
+        self.layout.addWidget(self.pixmap_label)
+        self.label.addWidget(self.x_label)
+        self.label.addWidget(self.y_label)
+        self.label.addWidget(self.z_label)
+        self.text.addWidget(self.x_text)
+        self.text.addWidget(self.y_text)
+        self.text.addWidget(self.z_text)
+        self.variables.addLayout(self.label)
+        self.variables.addLayout(self.text)
 
-        # Добавляем все элементы в вертикальный контейнер
-        layout.addLayout(choose_algorithms)
-        layout.addWidget(pixmap_label)
-        layout.addLayout(variables_layout)
-        layout.addWidget(self.result_label)
+        self.layout.addLayout(self.variables)
+        self.layout.addWidget(self.result_label)
+        self.layout.addWidget(self.calculate_button)
 
-        # Создаем горизонтальный контейнер для размещения изображения и вертикального контейнера
-        hbox = QHBoxLayout()
-        hbox.addLayout(layout)
+        self.setLayout(self.layout)
 
-        # Создаем основной виджет и устанавливаем горизонтальный контейнер в качестве макета
-        widget = QWidget()
-        widget.setLayout(hbox)
-        self.setCentralWidget(widget)
+    def calculate_result(self):
+        x = float(self.x_text.text())
+        y = float(self.y_text.text())
+        z = float(self.z_text.text())
 
-        linear.clicked.connect(self.get_result_of_linear_algorithm(float(variable1.text()), float(variable2.text()), float(variable3.text())))
+        result = Algorithms()
 
-    def get_result_of_linear_algorithm(self, x: float, y: float, z: float):
-        try:
-            res = Algorithms()
-            self.result_label.setText("Результат: " + str(res.linear_algoritm(x, y, z)))
-        except ValueError:
-            self.result_label.setText(str("Ошибка: введите число"))
+        self.result_label.setText("Результат: " + str(result.linear_algoritm(x, y, z)))
 
 
-    # def get_result_of_branching_algorithm(self, x, y, z):
-    #     res = Algorithms()
-    #     self.result_label.setText(str(res.branching_algorithm(x, y, z)))
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = Calc()
+    window = MainWindow()
     window.show()
     sys.exit(app.exec_())

@@ -19,4 +19,7 @@ class Algorithms():
             return abs(self.f(func, x) + y)**0.5
         else:
             return 2 * self.f(func, x)**2
-            
+
+if __name__ == "__main__":
+    res = Algorithms()
+    print(res.linear_algoritm(1, 2, 3))
