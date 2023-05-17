@@ -11,6 +11,8 @@ class Algorithms():
             return math.exp(x)
         elif func == "sqr(x)":
             return x**2
+        elif func == None:
+            return 6
 
     def branching_algorithm(self, x: float, y: float, func: str) -> float:
         if x * y > 5 and x * y < 0.5:

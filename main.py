@@ -44,6 +44,7 @@ class MainWindow(QWidget):
 
         if selected_radio_button.isChecked():
             self.label.setText(f'Вы выбрали {selected_radio_button.text()}')
+            print(type(selected_radio_button.text()))
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

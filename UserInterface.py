@@ -82,16 +82,18 @@ class MainWindow(QWidget):
             f = self.on_func_clicked()
 
             result = Algorithms()
-
+            # print(f)
             self.result_label.setText("Результат: " + str(result.branching_algorithm(x, y, f)))
         except ValueError:
             self.result_label.setText("Введите переменные")
 
-    def on_func_clicked(self):
-        selected_radio_button = self.sender()
-
-        if selected_radio_button.isChecked():
-            return selected_radio_button.text()
+    def on_func_clicked(self) -> str:
+        if self.func1.isChecked():
+            return "cos(x)"
+        elif self.func2.isChecked():
+            return "sqr(x)"
+        elif self.func3.isChecked():
+            return "exp(x)"
 
     def set_linear(self):
         if self.change_algorithm:
