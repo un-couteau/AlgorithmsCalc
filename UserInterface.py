@@ -82,7 +82,6 @@ class MainWindow(QWidget):
             f = self.on_func_clicked()
 
             result = Algorithms()
-            # print(f)
             self.result_label.setText("Результат: " + str(result.branching_algorithm(x, y, f)))
         except ValueError:
             self.result_label.setText("Введите переменные")
