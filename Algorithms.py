@@ -5,14 +5,14 @@ class Algorithms():
         return (5 * math.atan(x)) - ((1/4 * math.acos(x)) * ((x + 3 * abs(x - y) + x**2) / (abs(x - y) * z + x**2)))
 
     def f(self, func: str, x: float) -> float:
-        if func == "cos":
+        if func == "cos(x)":
             return math.cos(x)
-        elif func == "exp":
+        elif func == "exp(x)":
             return math.exp(x)
-        elif func == "sqr":
+        elif func == "sqr(x)":
             return x**2
 
-    def branching_algorithm(self, x, y, func) -> float:
+    def branching_algorithm(self, x: float, y: float, func: str) -> float:
         if x * y > 5 and x * y < 0.5:
             return math.e**self.f(func, x) - abs(y)
         elif x * y > 0.5 and x * y < 0.1:
