@@ -2,7 +2,7 @@ import math
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QHBoxLayout, QRadioButton
 from PyQt5.QtGui import QPixmap
-from Algorithms import Algorithms
+from src.backend.algorithms import Algorithms
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -17,11 +17,11 @@ class MainWindow(QWidget):
         self.linear = QPushButton("Линейный")
         self.branching = QPushButton("Разветленный")
 
-        self.pixmap_linear = QPixmap("Images/linear.png")
+        self.pixmap_linear = QPixmap("extras/images/linear.png")
         self.pixmap_label_linear = QLabel("fff")
         self.pixmap_label_linear.setPixmap(self.pixmap_linear)
 
-        self.pixmap_branching = QPixmap("Images/branching.png")
+        self.pixmap_branching = QPixmap("extras/images/branching.png")
         self.pixmap_label_branching = QLabel("fff")
         self.pixmap_label_branching.setPixmap(self.pixmap_branching)
         self.pixmap_label_branching.hide()
